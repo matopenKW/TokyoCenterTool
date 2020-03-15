@@ -1,11 +1,12 @@
 package main
 
 import (
+	"NameIdentification/handler"
 	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
-	"io/ioutil"
+	_ "io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -14,14 +15,9 @@ import (
 	"github.com/labstack/echo/middleware"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/google"
-	"google.golang.org/api/drive/v3"
+	_ "golang.org/x/oauth2/google"
+	_ "google.golang.org/api/drive/v3"
 )
-
-type Exsample struct {
-	Id   string
-	Name string
-}
 
 type Template struct {
 	templates *template.Template
@@ -29,22 +25,6 @@ type Template struct {
 
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	return t.templates.ExecuteTemplate(w, name, data)
-}
-
-func Hello(c echo.Context) error {
-	exsample := &Exsample{
-		Id:   "id",
-		Name: "name",
-	}
-	return c.Render(http.StatusOK, "hello.html", exsample)
-}
-
-func DriveHandler(c echo.Context) error {
-	exsample := &Exsample{
-		Id:   "id",
-		Name: "name",
-	}
-	return c.Render(http.StatusOK, "hello.html", exsample)
 }
 
 func main() {
@@ -59,8 +39,8 @@ func main() {
 	e.Renderer = &Template{
 		templates: template.Must(template.ParseGlob("views/*.html")),
 	}
-	e.GET("/hello", Hello)
-	e.GET("/testDrive", DriveHandler)
+	e.GET("/hello", handler.HelloHandler)
+	e.GET("/testDrive", handler.DriveHandler)
 
 	e.Logger.Fatal(e.Start(":8000"))
 }

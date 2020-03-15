@@ -87,16 +87,25 @@ func main() {
 		log.Fatalf("Unable to retrieve Drive client: %v", err)
 	}
 
-	r, err := srv.Files.List().PageSize(10).
+	reqFiles := srv.Files.List()
+	r, err := reqFiles.Q("(name = 'DriveTest')").PageSize(10).
+		Fields("nextPageToken, files(id)").Do()
+	if err != nil {
+		log.Fatalf("Unable to retrieve files: %v", err)
+	}
+
+	folderId := r.Files[0].Id
+	r2, err := reqFiles.Q(fmt.Sprintf("(parents in '%s')", folderId)).
 		Fields("nextPageToken, files(id, name)").Do()
 	if err != nil {
 		log.Fatalf("Unable to retrieve files: %v", err)
 	}
+
 	fmt.Println("Files:")
-	if len(r.Files) == 0 {
+	if len(r2.Files) == 0 {
 		fmt.Println("No files found.")
 	} else {
-		for _, i := range r.Files {
+		for _, i := range r2.Files {
 			fmt.Printf("%s (%s)\n", i.Name, i.Id)
 		}
 	}

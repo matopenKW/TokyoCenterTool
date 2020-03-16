@@ -1,0 +1,90 @@
+
+.box-row {
+    margin-bottom: 5.5vh;
+}
+
+.box {
+    margin: 0 auto;
+    margin-bottom: 5.5vh;
+    background: #ffffff;
+    max-width: 500px;
+}
+
+.box .box-title {
+    font-size: 1.2em;
+    background: #5d627b;
+    padding: 4px;
+    text-align: center;
+    color: #FFF;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+.box p {
+    padding: 15px 20px;
+    margin: 0;
+}
+
+
+@media screen and (min-width: 767px) {
+.box-row {
+    display: flex;
+    margin-bottom: 5.5vh;
+}
+
+.box {
+    margin-bottom: 0;
+    width: 45%;
+}
+
+.etc {
+    width: 90%;
+}
+}
+
+.box11{
+    /* padding: 0.5em 1em; */
+    margin: 2em 0;
+    color: #5d627b;
+    background: white;
+    /* border-top: solid 5px #5d627b; */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+}
+.box11 p {
+    text-align: center;
+    margin: 0; 
+    padding: 0;
+}
+
+.box11 .img {
+    /* background-image: url(../img/portfolio.png); */
+    background-size: 100%;
+    padding: 28%
+}
+
+.box11 .p-header {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.box11 a {
+    cursor: pointer;
+}
+@media screen and (min-width: 767px) {
+.box11{
+    width: 35%;
+}
+}
+
+#contact .box {
+    text-align: center;
+    padding-top: 3vh;
+}
+
+#contact svg{
+    height: 75px;
+}
+@media screen and (min-width: 767px) {
+#contact .box {
+    margin: auto 4vh;
+}
+}

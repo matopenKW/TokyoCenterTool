@@ -6,21 +6,26 @@
                 <div class="col-3">
                     <h3>フォルダ１</h3>
                     <div class="row folder-list">
-                        <div v-for="file in files1" :key="file.id" class="col-12">{{file.Name}}</div>
+                        <div v-for="file in files1" :key="file.id" @click="clickFile" class="col-12">{{file.Name}}</div>
                     </div>
                 </div>
                 <div class="col-3">
                     <h3>フォルダ２</h3>
                     <div class="row folder-list">
-                        <div v-for="file in files2" :key="file.id" class="col-12">{{file.Name}}</div>
+                        <div v-for="file in files2" :key="file.id" @click="clickFile" class="col-12">{{file.Name}}</div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <a
-                    href="https://github.com/nuxt/nuxt.js"
-                    target="_blank"
+                <div class="col-2">
+                    <a @click="clickButoon"
+                    href="javascript:void(0)"
                     class="button--grey"
                     >名寄せ実行</a>
+                </div>
+                <div class="col-3">
+                    <h3>名寄せ後</h3>
+                    <div class="row folder-list">
+                        <div v-for="file in files3" :key="file.id" class="col-12">{{file.Name}}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,7 +94,8 @@ export default {
                     id: 1,
                     Name: "センキャン参加者名簿",
                 }
-            ]
+            ],
+            files3: []
         }
     },
     mounted: function () {
@@ -98,8 +104,16 @@ export default {
         })
     },
     methods: {
+        async clickButoon(){
+            this.files3=[
+                {
+                    id: 1,
+                    Name: "名寄せ済み_20200327.xlsx",
+                }
+            ]
+        },
         async clickFile(){
-            alert('click File')
+            alert('clickFile')
 
         }
     }

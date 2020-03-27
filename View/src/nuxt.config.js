@@ -1,6 +1,6 @@
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -23,7 +23,10 @@ export default {
   ** Global CSS
   */
   css: [
-    '@/assets/css/style.css'
+    '@/assets/css/style.css',
+    '@/assets/bootstrap-4.3.1/css/bootstrap.min.css',
+    '@/assets/bootstrap-4.3.1/css/bootstrap-reboot.min.css',
+    '@/assets/bootstrap-4.3.1/css/bootstrap-grid.min.css'
   ],
   /*
   ** Plugins to load before mounting the App

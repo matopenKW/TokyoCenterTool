@@ -30,6 +30,7 @@ func main() {
 	}
 	e.GET("/hello", handler.HelloHandler)
 	e.GET("/testDrive", handler.DriveHandler)
+	e.GET("/getFolder", handler.GetFolderHandler)
 
 	e.Logger.Fatal(e.Start(":8000"))
 }

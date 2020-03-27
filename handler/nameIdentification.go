@@ -6,13 +6,14 @@ import (
 	"encoding/json"
 	_ "errors"
 	"github.com/labstack/echo"
-	_ "log"
+	"log"
 	"net/http"
 )
 
 func NameIdentificationHandler(c echo.Context) error {
 
 	teamList := make([]*domain.TeamName, 0, 0)
+	log.Println(teamList)
 
 	bytes, err := util.ReadFile("json/folder.json")
 	if err != nil {

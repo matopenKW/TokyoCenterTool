@@ -100,7 +100,7 @@ func GetFiles(service *drive.Service, folderName string) ([]*drive.File, error) 
 		return nil, errors.New("Unable to retrieve files: " + err.Error())
 	}
 	folderId := req.Files[0].Id
-	reqFile, err := files.Q(fmt.Sprintf("(parents in '%s')", folderId)).
+	reqFile, err := files.Q("(parents in '" + folderId + "')").
 		Fields("nextPageToken, files(id, name)").Do()
 	if err != nil {
 		return nil, errors.New("Unable to retrieve files:  " + err.Error())

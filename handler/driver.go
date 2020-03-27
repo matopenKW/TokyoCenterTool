@@ -5,16 +5,17 @@ import (
 	"NameIdentification/pkg"
 	"errors"
 	"github.com/labstack/echo"
-	_ "log"
+	_ "io/ioutil"
+	"log"
 	"net/http"
 )
 
 type DriveList struct {
-	Exsample []*domain.Exsample
+	FolderList []*domain.Folder
 }
 
 func DriveHandler(c echo.Context) error {
-	const FOLDER_NAME = "DriveTest"
+	const FOLDER_NAME = "develop"
 
 	service, err := pkg.GetService()
 	if err != nil {
@@ -29,20 +30,31 @@ func DriveHandler(c echo.Context) error {
 		return errors.New("No files in " + FOLDER_NAME)
 	}
 
-	driveList := make([]*domain.Exsample, 0, 0)
+	driveList := make([]*domain.Folder, 0, 0)
 
 	for _, i := range files {
-		exsample := &domain.Exsample{
+		folder := &domain.Folder{
 			Id:   i.Id,
 			Name: i.Name,
 		}
 
-		driveList = append(driveList, exsample)
+		res, err := service.Files.Get("1693YKeYqplM4iStd2-p63d-a97tZhByt").Download()
+		if err != nil {
+			return err
+		}
+
+		log.Println(res)
+
+		// url := "https://www.googleapis.com/drive/v3/files/19DKN2RCBKBjSEaTGpDxuT9DuVHkjuhUttUvfuHBvwfM?alt=media"
+
+		// resp, _ := http.Get(url)
+		// defer resp.Body.Close()
+
+		// byteArray, _ := ioutil.ReadAll(resp.Body)
+		// log.Println(string(byteArray))
+
+		driveList = append(driveList, folder)
 	}
 
-	res := &DriveList{
-		Exsample: driveList,
-	}
-
-	return c.Render(http.StatusOK, "drive.html", res)
+	return c.JSON(http.StatusOK, driveList)
 }

@@ -1,6 +1,6 @@
 package domain
 
 type Folder struct {
-	Id   int64
+	Id   string
 	Name string
 }

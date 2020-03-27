@@ -1,6 +1,6 @@
 package domain
 
-type Folder struct {
+type Yukimatsuri struct {
 	Name    string
 	Kana    string
 	Address string

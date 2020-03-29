@@ -24,6 +24,7 @@ func DriveHandler(c echo.Context) error {
 
 	files, err := pkg.GetFiles(service, FOLDER_NAME)
 	if err != nil {
+		log.Println(err)
 		return err
 	}
 	if len(files) == 0 {
@@ -38,12 +39,13 @@ func DriveHandler(c echo.Context) error {
 			Name: i.Name,
 		}
 
-		res, err := service.Files.Get("1693YKeYqplM4iStd2-p63d-a97tZhByt").Download()
-		if err != nil {
-			return err
-		}
+		// res, err := service.Files.Export(i.Id, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet").Download()
+		// if err != nil {
+		// 	log.Println(err)
+		// 	return err
+		// }
 
-		log.Println(res)
+		// log.Println(res)
 
 		// url := "https://www.googleapis.com/drive/v3/files/19DKN2RCBKBjSEaTGpDxuT9DuVHkjuhUttUvfuHBvwfM?alt=media"
 
@@ -52,6 +54,7 @@ func DriveHandler(c echo.Context) error {
 
 		// byteArray, _ := ioutil.ReadAll(resp.Body)
 		// log.Println(string(byteArray))
+		log.Println("success")
 
 		driveList = append(driveList, folder)
 	}

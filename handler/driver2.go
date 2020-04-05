@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/PuerkitoBio/goquery"
 	"github.com/labstack/echo"
 	"io"
 	"log"
@@ -21,6 +22,12 @@ func DriveHandler2(c echo.Context) error {
 	}
 	defer output.Close()
 
+	output2, err := os.Create("docs/file2.xlsx")
+	if err != nil {
+		return err
+	}
+	defer output2.Close()
+
 	response, err := http.Get(url)
 	if err != nil {
 		log.Println("Error while downloading", url, "-", err)
@@ -30,12 +37,15 @@ func DriveHandler2(c echo.Context) error {
 
 	log.Println(response)
 
-	n, err := io.Copy(output, response.Body)
+	// n, err := io.Copy(output, response.Body)
+	n, err := goquery.NewDocumentFromReader(
+		io.TeeReader(response.Body, io.MultiWriter(output, output2)),
+	)
 	if err != nil {
 		return err
 	}
 
 	log.Println(n, "bytes downloaded")
 
-	return c.JSON(http.StatusOK, string(n))
+	return c.JSON(http.StatusOK, "")
 }

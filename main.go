@@ -32,6 +32,8 @@ func main() {
 	e.GET("/testDrive", handler.DriveHandler)
 	e.GET("/testDrive2", handler.DriveHandler2)
 	e.GET("/getFolder", handler.GetFolderHandler)
+	e.GET("/nameIdentification", handler.NameIdentificationHandler)
+	e.GET("/createFile", handler.CreateFileHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

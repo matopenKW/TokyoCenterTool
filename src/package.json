@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.9.5",
+    "core-js": "^2.6.5",
     "firebase": "^7.12.0",
     "nuxt": "^2.0.0"
   },

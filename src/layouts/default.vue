@@ -1,6 +1,11 @@
 <template>
   <div>
-    <nuxt />
+    <div id="header" class="p-1 text-right">
+      <input class="btn btn-primary" value="ログアウト">
+    </div>
+    <div class="content">
+      <nuxt />
+    </div>
   </div>
 </template>
 

@@ -22,23 +22,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="carfare in carfareList" :key="carfare.seqNo">
-                                <th class="date">{{ carfare.date }}</th>
+                            <tr v-for="carfare in carfareList" :key="carfare.SeqNo">
+                                <th class="date">{{ carfare.Date }}</th>
                                 <td data-label="内容" class="route">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-5">
-                                            <input type="text" v-model="carfare.start">
+                                            <input type="text" v-model="carfare.Start">
                                         </div>
                                         <div class="arrow text-center col-md-12 col-lg-1"></div>
                                         <div class="col-md-12 col-lg-5">
-                                            <input type="text" v-model="carfare.end">
+                                            <input type="text" v-model="carfare.End">
                                         </div>
                                     </div>
                                 </td>
-                                <td data-label="価格" class="price">{{ carfare.price }}</td>
+                                <td data-label="価格" class="price">{{ carfare.Price }}</td>
                                 <td data-label="" class="btn-area">
-                                    <input class="btn btn-primary" value="登録">
-                                    <input class="btn btn-danger" value="削除">
+                                    <input type="button" class="btn btn-primary" value="登録" click="clickRegistBtn">
+                                    <input type="button" class="btn btn-danger" value="削除">
                                 </td>
                             </tr>
                         </tbody>
@@ -50,30 +50,35 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
-    data: function(){
-        return {
-            carfareList: [
-                {
-                    seqNo: 1,
-                    date: 20200510,
-                    start: "町田",
-                    end: "新宿",
-                    price: 3000
-                },
-                {
-                    seqNo: 2,
-                    date: 20200510,
-                    start: "町田",
-                    end: "新宿",
-                    price: 3000
-                }
-            ]
-        }
-    },
     components: {
         Menu: () => import ('~/components/Menu.vue'),
+    },
+    data: function(){
+        return {
+            carfareList: []
+        }
+    },
+    mounted: function(){
+        this.$nextTick(function () {
+            this.$axios.$get('/getCarfare',{
+                params:{}
+            })
+            .then(response => {
+                this.carfareList = response
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            .finally(() => console.log('finally'))
+        })
+    },
+    methods: {
+        async clickRegistBtn(){
+            console.log(this.carfareList)
+        }
     }
 }
 </script>

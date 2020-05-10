@@ -55,7 +55,7 @@ export default {
     }
   },
   axios: {
-    baseURL: 'https://matopenkw-portfolio.appspot.com'
+    baseURL: 'https://localhost:8080/'
   },
   proxy: {
     '/api': '/'

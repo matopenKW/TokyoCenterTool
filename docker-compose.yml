@@ -7,5 +7,3 @@ services:
       - .:/go/src/work # マウントディレクトリ指定
     ports:
         - "8080:8080"
-    command:
-      "go run main.go"

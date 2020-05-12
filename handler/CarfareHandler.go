@@ -2,22 +2,25 @@ package handler
 
 import (
 	"Carfare/pkg/util"
+
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	_ "github.com/jinzhu/gorm"
 	"log"
 	"net/http"
 )
 
 type Carfare struct {
-	SeqNo int    "json:seqNo"
-	Date  string "json:date"
-	Start string "json:start"
-	End   string "json:end"
-	Price int    "json:price"
+	SeqNo      int    "json:seqNo"
+	Date       string "json:date"
+	StartPoint string "json:start_point"
+	EndPoint   string "json:end_point"
+	Price      int    "json:price"
 }
 
 func GetCarfare(ctx *gin.Context) {
-	list, err := getJSON()
+	// list, err := getJSON()
+	list, err := getData()
 	if err != nil {
 		log.Println("Error:", err)
 		ret := `"error": "error です"`
@@ -25,6 +28,29 @@ func GetCarfare(ctx *gin.Context) {
 	} else {
 		ctx.JSON(http.StatusOK, list)
 	}
+}
+
+func getData() ([]*Carfare, error) {
+
+	list, err := selectCarfare()
+	if err != nil {
+		return nil, err
+	}
+
+	return list, nil
+}
+
+func selectCarfare() ([]*Carfare, error) {
+
+	sqlCon, err := util.GetConnection()
+	if err != nil {
+		return nil, err
+	}
+
+	list := []*Carfare{}
+	err = sqlCon.Table("carfare").Find(&list, "user_id=?", "kazu").Error
+
+	return list, nil
 }
 
 func getJSON() ([]*Carfare, error) {

@@ -17,21 +17,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="carfare in carfareList" :key="carfare.SeqNo">
+                    <tr v-for="(carfare, index) in carfareList" :key="carfare.SeqNo" class="carfareList" @click="clickRow(index)">
                         <th class="date">{{ carfare.Date }}</th>
-                        <td data-label="内容" class="route">
+                        <td v-show="verticalMode || selectIndex == index" data-label="内容" class="route">
                             <div class="row">
                                 <div class="col-md-12 col-lg-5">
-                                    <input type="text" v-model="carfare.Start">
+                                    <input type="text" v-model="carfare.StartPoint">
                                 </div>
                                 <div class="arrow text-center col-md-12 col-lg-1"></div>
                                 <div class="col-md-12 col-lg-5">
-                                    <input type="text" v-model="carfare.End">
+                                    <input type="text" v-model="carfare.EndPoint">
                                 </div>
                             </div>
                         </td>
-                        <td data-label="価格" class="price">{{ carfare.Price }}</td>
-                        <td data-label="" class="btn-area">
+                        <td v-show="verticalMode || selectIndex == index" data-label="価格" class="price">{{ carfare.Price }}</td>
+                        <td v-show="verticalMode || selectIndex == index" data-label="" class="btn-area">
                             <input type="button" class="btn btn-primary" value="登録" @click="clickRegistBtn">
                             <input type="button" class="btn btn-danger" value="削除" @click="clickDeleteBtn">
                         </td>
@@ -48,10 +48,30 @@ import axios from 'axios'
 export default {
     data: function(){
         return {
-            carfareList: []
+            carfareList: [],
+            verticalMode: true,
+            selectIndex: 1
+        }
+    },
+    methods: {
+        handleResize: function(){
+            this.verticalMode = window.innerWidth > 768
+        },
+        async clickRow(index){
+            this.selectIndex = index
+        },
+        async clickRegistBtn(obj){
+            console.log(obj)
+        },
+        async clickDeleteBtn(obj){
+            console.log(obj)
+            this.carfareList = []
         }
     },
     mounted: function(){
+        this.verticalMode = window.innerWidth > 768
+        window.addEventListener('resize', this.handleResize)
+
         this.$nextTick(function () {
             this.$axios.$get('/getCarfare',{
                 params:{}
@@ -64,15 +84,6 @@ export default {
             })
             .finally(() => console.log('finally'))
         })
-    },
-    methods: {
-        async clickRegistBtn(obj){
-            console.log(obj)
-        },
-        async clickDeleteBtn(obj){
-            console.log(obj)
-            this.carfareList = []
-        }
     }
 }
 </script>
@@ -100,6 +111,11 @@ export default {
 
 #carfare #carfare-list-area .btn {
     width: 76px;
+}
+
+#carfare #carfare-list-area .carfareList:checked {
+    background-color: red;
+
 }
 
 /*テーブルレイアウト */
@@ -130,14 +146,14 @@ table .route .arrow:after {
 }
 
 @media screen and (max-width: 768px) {
-    table .route-head,
+    /* table .route-head,
     table .route,
     table .price-head,
     table .price,
     table .btn-area-head,
     table .btn-area {
         display: none;
-    }
+    } */
 }
 
 /*テーブルレイアウト defalt*/

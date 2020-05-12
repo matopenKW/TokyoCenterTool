@@ -1,28 +1,10 @@
 <template>
   <div>
-    <div id="header" class="p-1 text-right">
-      <input id="logout-btn" type="button" class="btn btn-primary" value="ログアウト">
-    </div>
     <div class="content">
-      <div class="row">
-        <div class="col-3 d-sm-none d-md-none d-lg-inline">
-          <Menu />
-        </div>
-        <div class="col-sm-12 col-md-9 col-lg-9">
-          <nuxt />
-        </div>
-      </div>
+        <nuxt />
     </div>
   </div>
 </template>
-
-<script>
-export default {
-    components: {
-        Menu: () => import ('~/components/Menu.vue'),
-    }
-}
-</script>
 
 <style>
 html {

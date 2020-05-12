@@ -8,6 +8,12 @@
     height: 100%;
 }
 
+@media screen and (max-width: 768px) {
+    #menu {
+        display: none;
+    }
+}
+
 .content {
     padding: 3vh;
 }

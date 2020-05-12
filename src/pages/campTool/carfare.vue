@@ -1,50 +1,43 @@
 <template>
     <div id="carfare">
-        <div class="row">
-            <div class="menu col-3">
-                <Menu />
+        <h2>交通費管理</h2>
+        <div id="carfare-serch-area" class="row">
+            <div class="col-12">
+                検索機能 Comming Soon...
             </div>
-            <div id="carfare-area" class="col-sm-12 col-md-9 col-lg-9">
-                <h2>交通費管理</h2>
-                <div id="carfare-serch-area" class="row">
-                    <div class="col-12">
-                        検索機能 Comming Soon...
-                    </div>
-                </div>
-                <div id="carfare-list-area" class="row">
-                    <table>
-                        <thead>
-                            <tr>
-                                <td class="date-head">日付</td>
-                                <th scope="col">内容</th>
-                                <th class="price-head" scope="col">価格(月額)</th>
-                                <th class="btn-area-head" scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="carfare in carfareList" :key="carfare.SeqNo">
-                                <th class="date">{{ carfare.Date }}</th>
-                                <td data-label="内容" class="route">
-                                    <div class="row">
-                                        <div class="col-md-12 col-lg-5">
-                                            <input type="text" v-model="carfare.Start">
-                                        </div>
-                                        <div class="arrow text-center col-md-12 col-lg-1"></div>
-                                        <div class="col-md-12 col-lg-5">
-                                            <input type="text" v-model="carfare.End">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td data-label="価格" class="price">{{ carfare.Price }}</td>
-                                <td data-label="" class="btn-area">
-                                    <input type="button" class="btn btn-primary" value="登録" click="clickRegistBtn">
-                                    <input type="button" class="btn btn-danger" value="削除">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>   
-                </div>
-            </div>
+        </div>
+        <div id="carfare-list-area" class="row">
+            <table>
+                <thead>
+                    <tr>
+                        <td class="date-head">日付</td>
+                        <th class="route-head" scope="col">内容</th>
+                        <th class="price-head" scope="col">価格(月額)</th>
+                        <th class="btn-area-head" scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="carfare in carfareList" :key="carfare.SeqNo">
+                        <th class="date">{{ carfare.Date }}</th>
+                        <td data-label="内容" class="route">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-5">
+                                    <input type="text" v-model="carfare.Start">
+                                </div>
+                                <div class="arrow text-center col-md-12 col-lg-1"></div>
+                                <div class="col-md-12 col-lg-5">
+                                    <input type="text" v-model="carfare.End">
+                                </div>
+                            </div>
+                        </td>
+                        <td data-label="価格" class="price">{{ carfare.Price }}</td>
+                        <td data-label="" class="btn-area">
+                            <input type="button" class="btn btn-primary" value="登録" @click="clickRegistBtn">
+                            <input type="button" class="btn btn-danger" value="削除" @click="clickDeleteBtn">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
         </div>
     </div>
 </template>
@@ -53,9 +46,6 @@
 import axios from 'axios'
 
 export default {
-    components: {
-        Menu: () => import ('~/components/Menu.vue'),
-    },
     data: function(){
         return {
             carfareList: []
@@ -76,8 +66,12 @@ export default {
         })
     },
     methods: {
-        async clickRegistBtn(){
-            console.log(this.carfareList)
+        async clickRegistBtn(obj){
+            console.log(obj)
+        },
+        async clickDeleteBtn(obj){
+            console.log(obj)
+            this.carfareList = []
         }
     }
 }
@@ -85,33 +79,27 @@ export default {
 
 <style>
 
-#carfare-area h2 {
+#carfare h2 {
     margin-bottom: 2vh;
 }
 
-#carfare-area #carfare-serch-area {
+#carfare #carfare-serch-area {
     margin-bottom: 2vh;
     height: 50px;
     background-color: #eee;
     border: 1px solid #bbb;
 }
 
-#carfare-area #carfare-serch-area > div {
+#carfare #carfare-serch-area > div {
     margin: auto;
 }
 
-#carfare-area #carfare-list-area {
+#carfare #carfare-list-area {
     justify-content: center;
 }
 
-#carfare-area #carfare-list-area .btn {
+#carfare #carfare-list-area .btn {
     width: 76px;
-}
-
-@media screen and (max-width: 768px) {
-    .menu {
-        display: none;
-    }
 }
 
 /*テーブルレイアウト */
@@ -138,6 +126,17 @@ table .route .arrow:after {
 @media screen and (max-width: 992px) {
     table .route .arrow:after {
         content: '↓';
+    }
+}
+
+@media screen and (max-width: 768px) {
+    table .route-head,
+    table .route,
+    table .price-head,
+    table .price,
+    table .btn-area-head,
+    table .btn-area {
+        display: none;
     }
 }
 

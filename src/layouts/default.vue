@@ -1,11 +1,7 @@
 <template>
   <div>
     <div id="header" class="p-1 text-right">
-<<<<<<< Updated upstream
-      <input class="btn btn-primary" value="ログアウト">
-=======
       <input id="logout-btn" type="button" class="btn btn-primary" value="ログアウト">
->>>>>>> Stashed changes
     </div>
     <div class="content">
       <nuxt />

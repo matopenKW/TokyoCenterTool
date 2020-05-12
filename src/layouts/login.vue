@@ -1,22 +1,10 @@
 <template>
   <div>
     <div class="content">
-      <div class="row">
-        <div class="col-12">
-          <nuxt />
-        </div>
-      </div>
+        <nuxt />
     </div>
   </div>
 </template>
-
-<script>
-export default {
-    components: {
-        Menu: () => import ('~/components/Menu.vue'),
-    }
-}
-</script>
 
 <style>
 html {

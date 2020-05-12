@@ -1,18 +1,12 @@
 <template>
-    <div id="content">
-        <div class="row">
-            <div class="col-12">
-                <div id="login-form" class="login">
-                    <h2 class="login-header">ログイン</h2>
-                    <form class="login-container">
-                        <p><input type="email" placeholder="Email"></p>
-                        <p><input type="password" placeholder="Password"></p>
-                        <p><input type="submit" value="Log in" @click="submitLogin"></p>
-                        <p><input type="submit" value="Gest User" @click="submitGetUser"></p>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div id="login-form" class="login">
+        <h2 class="login-header">ログイン</h2>
+        <form class="login-container">
+            <p><input type="email" placeholder="Email"></p>
+            <p><input type="password" placeholder="Password"></p>
+            <p><input type="button" value="Log in" @click="submitLogin"></p>
+            <p><input type="button" value="Gest User" @click="submitGetUser"></p>
+        </form>
     </div>
 </template>
 <script>
@@ -34,30 +28,20 @@ export default {
     methods: {
         async submitLogin(){
             alert('click Login')
+        },
+        async submitGetUser(){
+            window.location.href = 'campTool/top'
         }
-
-
-        // async getString() {
-        //     this.res = await this.$axios.$get('/resString')
-        // },
-        // async getProfile() {
-        //     let res = await this.$axios.$get('/getProfile',{
-        //         params:{}
-        //     })
-        //     .then(response => {
-        //         this.res = response.profile
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
-        //     .finally(() => console.log('finally'))
-        // }
     }
 }
 
 </script>
 
 <style>
+
+#login-form {
+    margin-top: 7vh;
+}
 
 .login {
   width: 400px;
@@ -117,19 +101,19 @@ export default {
   border-color: #888;
 }
 
-.login input[type="submit"] {
+.login input[type="button"] {
   background: #28d;
   border-color: transparent;
   color: #fff;
   cursor: pointer;
 }
 
-.login input[type="submit"]:hover {
+.login input[type="button"]:hover {
   background: #17c;
 }
 
 /* Buttons' focus effect */
-.login input[type="submit"]:focus {
+.login input[type="button"]:focus {
   border-color: #05a;
 }
 </style>

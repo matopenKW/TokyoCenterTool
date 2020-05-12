@@ -1,74 +1,23 @@
 <template>
-    <div id="content">
-        <div class="nav"></div>
-        <div class="container-fluid">
-            <div v-for="file in files" :key="file.id" class="row">
-                <div class="text-center col-3">
-                    <p> Id: {{ file.id}} Name: {{file.Name}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <button @click="getString">選択したファイルを名寄せする</button>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <p>名寄せファイル</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <button @click="getString">ダウンロード</button>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div>
-                <p>{{ res }}</p>
-                <a
-                href="https://github.com/nuxt/nuxt.js"
-                target="_blank"
-                class="button--grey"
-                >link</a>
-            </div>
-            <div>
-                <button @click="getString">文字列を取得</button>
-                <button @click="getProfile">プロフィールを取得</button>
-            </div>
-        </div>
+    <div id="login-form" class="login">
+        <h2 class="login-header">ログイン</h2>
+        <form class="login-container">
+            <p><input type="email" placeholder="Email"></p>
+            <p><input type="password" placeholder="Password"></p>
+            <p><input type="button" value="Log in" @click="submitLogin"></p>
+            <p><input type="button" value="Gest User" @click="submitGetUser"></p>
+        </form>
     </div>
 </template>
 <script>
 
 export default {
-
+    layout ({ store }) {
+        return 'login'
+    },
     data: function() {
         return {
-            files: [
-                {
-                    id: 1,
-                    Name: "雪まつり名簿",
-                },
-                {
-                    id: 1,
-                    Name: "申し込み",
-                },
-                {
-                    id: 1,
-                    Name: "申し込み",
-                },
-                {
-                    id: 1,
-                    Name: "申し込み",
-                },
-                {
-                    id: 1,
-                    Name: "申し込み",
-                }
-            ]
+            files: []
         }
     },
     mounted: function () {
@@ -77,28 +26,94 @@ export default {
         })
     },
     methods: {
-        async clickFile(){
-            alert('click File')
-
+        async submitLogin(){
+            alert('click Login')
+        },
+        async submitGetUser(){
+            window.location.href = 'campTool/top'
         }
-
-
-        // async getString() {
-        //     this.res = await this.$axios.$get('/resString')
-        // },
-        // async getProfile() {
-        //     let res = await this.$axios.$get('/getProfile',{
-        //         params:{}
-        //     })
-        //     .then(response => {
-        //         this.res = response.profile
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
-        //     .finally(() => console.log('finally'))
-        // }
     }
 }
 
 </script>
+
+<style>
+
+#login-form {
+    margin-top: 7vh;
+}
+
+.login {
+  width: 400px;
+  margin: 16px auto;
+  font-size: 16px;
+}
+
+/* Reset top and bottom margins from certain elements */
+.login-header,
+.login p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.login-header {
+  background: #28d;
+  padding: 20px;
+  font-size: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.login-container {
+  background: #ebebeb;
+  padding: 12px;
+}
+
+/* Every row inside .login-container is defined with p tags */
+.login p {
+  padding: 12px;
+}
+
+.login input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px;
+  outline: 0;
+  font-family: inherit;
+  font-size: 0.95em;
+}
+
+.login input[type="email"],
+.login input[type="password"] {
+  background: #fff;
+  border-color: #bbb;
+  color: #555;
+}
+
+/* Text fields' focus effect */
+.login input[type="email"]:focus,
+.login input[type="password"]:focus {
+  border-color: #888;
+}
+
+.login input[type="button"] {
+  background: #28d;
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.login input[type="button"]:hover {
+  background: #17c;
+}
+
+/* Buttons' focus effect */
+.login input[type="button"]:focus {
+  border-color: #05a;
+}
+</style>

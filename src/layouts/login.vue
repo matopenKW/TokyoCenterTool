@@ -1,17 +1,22 @@
 <template>
   <div>
-    <div id="header" class="p-1 text-right">
-<<<<<<< Updated upstream
-      <input class="btn btn-primary" value="ログアウト">
-=======
-      <input id="logout-btn" type="button" class="btn btn-primary" value="ログアウト">
->>>>>>> Stashed changes
-    </div>
     <div class="content">
-      <nuxt />
+      <div class="row">
+        <div class="col-12">
+          <nuxt />
+        </div>
+      </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+    components: {
+        Menu: () => import ('~/components/Menu.vue'),
+    }
+}
+</script>
 
 <style>
 html {

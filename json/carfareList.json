@@ -2,22 +2,22 @@
     {
         "seqNo": 1,
         "date": "20200510",
-        "start": "町田",
-        "end": "新宿",
+        "startPoint": "町田",
+        "endPoint": "新宿",
         "price": 3000
     },
     {
         "seqNo": 2,
         "date": "20200510",
-        "start": "町田",
-        "end": "新宿",
+        "startPoint": "町田",
+        "endPoint": "新宿",
         "price": 3000
     },
     {
         "seqNo": 2,
         "date": "20200510",
-        "start": "町田",
-        "end": "新宿",
+        "startPoint": "町田",
+        "endPoint": "新宿",
         "price": 3000
     }
 ]

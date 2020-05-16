@@ -1,14 +1,19 @@
 package util
 
 import (
+	"Carfare/pkg"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"gopkg.in/ini.v1"
 )
 
+type DB struct {
+}
+
 func GetConnection() (db *gorm.DB, err error) {
 
-	conf, err := ini.Load("pkg/conf/config.conf")
+	conf, err := ini.Load(pkg.CONFIG_PATH)
 	if err != nil {
 		return nil, err
 	}

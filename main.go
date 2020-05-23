@@ -10,10 +10,18 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
+	"gopkg.in/ini.v1"
 )
 
 func main() {
-	creds := credentials.NewStaticCredentials("AKIAQLVPVCZSTVH3EV4X", "cBEqkX6hmcAs9UOzDSIXp7o6N/W4cakdXbbU/NlH", "")
+
+	c, _ := ini.Load("config.conf")
+	corsConfig := c.Section("s3")
+
+	accesskeyId := corsConfig.Key("accesskeyId").String()
+	secretAccesskey := corsConfig.Key("secretAccesskey").String()
+
+	creds := credentials.NewStaticCredentials(accesskeyId, secretAccesskey, "")
 	sess, err := session.NewSession(&aws.Config{
 		Credentials: creds,
 		Region:      aws.String("ap-northeast-1")},

@@ -6,34 +6,23 @@ import (
 
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	_ "github.com/jinzhu/gorm"
-	"log"
-	"net/http"
+	"github.com/jinzhu/gorm"
+	_ "log"
 )
 
-func GetCarfare(ctx *gin.Context) {
-	list, err := getJSON()
-	//list, err := getData()
-	if err != nil {
-		log.Println("Error:", err)
-		ret := `"error": "error です"`
-		ctx.JSON(http.StatusInternalServerError, ret)
+func GetCarfare(db *gorm.DB, ctx *gin.Context) (interface{}, error) {
+
+	isJson := false
+	userId := "kazu"
+
+	if isJson {
+		return getJson()
 	} else {
-		ctx.JSON(http.StatusOK, list)
+		return getData(userId)
 	}
 }
 
-func getData() ([]*domain.Carfare, error) {
-
-	list, err := selectCarfare()
-	if err != nil {
-		return nil, err
-	}
-
-	return list, nil
-}
-
-func selectCarfare() ([]*domain.Carfare, error) {
+func getData(userId string) ([]*domain.Carfare, error) {
 
 	sqlCon, err := util.GetConnection()
 	if err != nil {
@@ -41,12 +30,12 @@ func selectCarfare() ([]*domain.Carfare, error) {
 	}
 
 	list := []*domain.Carfare{}
-	err = sqlCon.Table("carfare").Find(&list, "user_id=?", "kazu").Error
+	err = sqlCon.Model(&list).Find(&list, "user_id=?", userId).Error
 
 	return list, nil
 }
 
-func getJSON() ([]*domain.Carfare, error) {
+func getJson() ([]*domain.Carfare, error) {
 
 	bytes, err := util.ReadFile("json/carfareList.json")
 	if err != nil {

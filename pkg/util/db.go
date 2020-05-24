@@ -8,9 +8,6 @@ import (
 	"gopkg.in/ini.v1"
 )
 
-type DB struct {
-}
-
 func GetConnection() (db *gorm.DB, err error) {
 
 	conf, err := ini.Load(pkg.CONFIG_PATH)

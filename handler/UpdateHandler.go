@@ -2,47 +2,42 @@ package handler
 
 import (
 	"Carfare/domain"
-	"Carfare/pkg/util"
 
 	"github.com/gin-gonic/gin"
-	_ "github.com/jinzhu/gorm"
+	"github.com/jinzhu/gorm"
 	"log"
-	"net/http"
+	"strconv"
 )
 
-func UpdateCarfare(ctx *gin.Context) {
+func UpdateCarfare(db *gorm.DB, ctx *gin.Context) (interface{}, error) {
 
 	ctx.Request.ParseForm()
 	form := ctx.Request.Form
 	log.Println(form)
 
-	ret := make([]*domain.Carfare, 0, 0)
 	carfare := &domain.Carfare{
-		SeqNo:      1,
+		SeqNo:      cnvInt(form["SeqNo"][0]),
+		UserId:     "kazu",
 		Date:       form["Date"][0],
 		StartPoint: form["StartPoint"][0],
 		EndPoint:   form["EndPoint"][0],
-		Price:      3000,
-		//Price:      form["Price"][i],
+		Price:      cnvInt(form["Price"][0]),
 	}
 
-	ret = append(ret, carfare)
-
-	err := update(carfare)
+	err := update(db, carfare)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, `"error": "error です"`)
+		return nil, err
 	} else {
-		ctx.JSON(http.StatusOK, ret)
+		return nil, nil
 	}
 }
 
-func update(carfare *domain.Carfare) error {
-	sqlCon, err := util.GetConnection()
-	if err != nil {
-		return err
-	}
+func update(db *gorm.DB, carfare *domain.Carfare) error {
+	return db.Debug().Model(&carfare).Where("seq_no=?", carfare.SeqNo).Update(&carfare).Error
 
-	err = sqlCon.Table("carfare").Update(carfare).Error
+}
 
-	return nil
+func cnvInt(s string) int {
+	num, _ := strconv.Atoi(s)
+	return num
 }
